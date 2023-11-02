@@ -1,0 +1,25 @@
+.visual {
+  position: relative;
+  margin-top: 3rem;
+}
+.visual-inner {
+  position: relative;
+  max-width: 128rem;
+  min-height: 30rem;
+  margin: 0 auto;
+  margin-bottom: 9rem;
+}
+
+.visual-slide-item {
+  overflow: hidden;
+  border-radius: 1.4rem;
+}
+
+.visual-slide-item a {
+  position: relative;
+  display: block;
+}
+
+.visual-slide-item img {
+  width: 100%;
+}
