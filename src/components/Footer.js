@@ -87,7 +87,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-inner">
-        <div div className="footer-info-wrap">
+        <div className="footer-info-wrap">
           <div className="footer-info">
             <h4>(주)인터파크트리플</h4>
             <ul className="footer-info-list">
