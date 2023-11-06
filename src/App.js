@@ -8,6 +8,7 @@ import Recommend from "./components/Recommend";
 import Ticket from "./components/Ticket";
 import Tour from "./components/Tour";
 import Visual from "./components/Visual";
+import Recommend2 from "./components/Recommend2";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       {/* <!-- 메인 영역 --> */}
       <div className="main">
         <Visual />
+        <Recommend2 />
         <Recommend />
         <Tour />
         <Ticket />

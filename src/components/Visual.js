@@ -45,7 +45,6 @@ export default function Visual() {
     for (let i = 0; i < visualRes.total; i++) {
       visualArray[i] = visualRes["visual_" + (i + 1)];
     }
-    console.log(visualArray);
     setVisualHtml(visualArray);
   };
 

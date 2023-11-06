@@ -8,8 +8,39 @@ import "swiper/css";
 // import required modules
 import { Navigation } from "swiper/modules";
 import "../styles/recommend.css";
+import { useEffect, useState } from "react";
 
 export default function Recommend() {
+  // json 데이터 저장 후, 자료가 바뀌면 화면 변경될 변수
+  const [htmlTag, setHtmlTag] = useState([]);
+
+  const getJsonData = () => {
+    fetch("recommend.json")
+      .then((response) => {
+        // console.log("response :", response);
+        return response.json();
+      })
+      .then((result) => {
+        // 자료 처리
+        // console.log("result :", result);
+        let arr = [];
+        for (let i = 0; i < result.total; i++) {
+          const obj = result["good_" + (i + 1)];
+          arr[i] = obj;
+        }
+        setHtmlTag(arr);
+      })
+      .catch((error) => {
+        // 에러발생
+        console.log("error :", error);
+      });
+  };
+
+  useEffect(() => {
+    //화면 로딩 후 외부데이터 호출
+    getJsonData();
+  }, []);
+
   return (
     <section className="recommend">
       <div className="recommend-inner">
@@ -22,16 +53,24 @@ export default function Recommend() {
         <div className="recommend-wrap">
           <ul className="recommend-tab tab-list">
             <li>
-              <button className="tab-btn on">쎈딜</button>
+              <button className="tab-btn on" data-category="tab-1">
+                쎈딜
+              </button>
             </li>
             <li>
-              <button className="tab-btn">베스트</button>
+              <button className="tab-btn" data-category="tab-2">
+                베스트
+              </button>
             </li>
             <li>
-              <button className="tab-btn">블프데이</button>
+              <button className="tab-btn" data-category="tab-3">
+                블프데이
+              </button>
             </li>
             <li>
-              <button className="tab-btn">디지털프라자</button>
+              <button className="tab-btn" data-category="tab-4">
+                디지털프라자
+              </button>
             </li>
             <li>
               <a href="" className="tab-btn">
@@ -51,121 +90,49 @@ export default function Recommend() {
             modules={[Navigation]}
             className="recommend-slide"
           >
-            <SwiperSlide>
-              <div className="recommend-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="../images/r1.jpg" alt="recommend_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-price">
-                      <span className="sale-percentage">50%</span>
-                      <span>
-                        <b>6,900</b>원
-                      </span>
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  {index === htmlTag.length - 1 ? (
+                    <div className="slide-item-more">
+                      <a href={item.url}>
+                        <i>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/images/btn_moreProduct.svg"
+                            }
+                          />
+                        </i>
+                        <p>전체보기</p>
+                      </a>
                     </div>
-                    <div className="item-name">
-                      [무료배송] GAP/네파키즈 유아 아동양말 특가전 6팩
-                      건조기가능/KC인증
+                  ) : (
+                    <div className="recommend-slide-item">
+                      <a href={item.url}>
+                        <div className="item-img">
+                          <img
+                            src={process.env.PUBLIC_URL + item.image}
+                            alt={item.alt}
+                          />
+                        </div>
+                        <div className="item-info">
+                          <div className="item-price">
+                            <span className="sale-percentage">
+                              {item.discount === 0 ? "" : item.discount + "%"}
+                            </span>
+                            <span>
+                              <b>{item.price}</b>원
+                            </span>
+                          </div>
+                          <div className="item-name">{item.name}</div>
+                        </div>
+                      </a>
                     </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="recommend-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="../images/r2.jpg" alt="recommend_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-price">
-                      <span className="sale-percentage">50%</span>
-                      <span>
-                        <b>6,900</b>원
-                      </span>
-                    </div>
-                    <div className="item-name">
-                      [I*POP] 아이팝 스파클링 워터 플레인 / 아이팝 탄산수 /
-                      강탄산 / 진짜 먹는 샘물로 만든 탄산수
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="recommend-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="../images/r3.jpg" alt="recommend_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-price">
-                      <span className="sale-percentage">50%</span>
-                      <span>
-                        <b>6,900</b>원
-                      </span>
-                    </div>
-                    <div className="item-name">
-                      [무료배송] GAP/네파키즈 유아 아동양말 특가전 6팩
-                      건조기가능/KC인증
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="recommend-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="../images/r4.jpg" alt="recommend_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-price">
-                      <span className="sale-percentage">50%</span>
-                      <span>
-                        <b>6,900</b>원
-                      </span>
-                    </div>
-                    <div className="item-name">
-                      [무료배송] GAP/네파키즈 유아 아동양말 특가전 6팩
-                      건조기가능/KC인증
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="recommend-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="../images/r5.jpg" alt="recommend_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-price">
-                      <span className="sale-percentage">50%</span>
-                      <span>
-                        <b>6,900</b>원
-                      </span>
-                    </div>
-                    <div className="item-name">
-                      [무료배송] GAP/네파키즈 유아 아동양말 특가전 6팩
-                      건조기가능/KC인증
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="slide-item-more">
-                <a href="">
-                  <i>
-                    <img src="../images/btn_moreProduct.svg" alt="전체보기" />
-                  </i>
-                  <p>전체보기</p>
-                </a>
-              </div>
-            </SwiperSlide>
+                  )}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="recommend-btn slide-btn next">이전</button>
           <button className="recommend-btn slide-btn prev">다음</button>

@@ -1,0 +1,243 @@
+{
+  "total": 12,
+  "live_1": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live1_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live1.png",
+      "name": "제품명",
+      "discount": 0,
+      "price": 100000,
+      "url": "product.html",
+      "open": true
+    }
+  },
+  "live_2": {
+    "live_info": {
+      "state": "LIVE",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live2_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live2.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": true
+    }
+  },
+  "live_3": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live3_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 28일 (토)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live3.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_4": {
+    "live_info": {
+      "state": "VOD",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live4_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live4.png",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": true
+    }
+  },
+  "live_5": {
+    "live_info": {
+      "state": "LIVE",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live5_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live5.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": true
+    }
+  },
+  "live_6": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live2_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live2.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_7": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live3_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live3.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_8": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live4_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live4.png",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_9": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live5_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live5.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_10": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live2_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live2.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_11": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live3_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live3.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  },
+  "live_12": {
+    "live_info": {
+      "state": "방송예정",
+      "name": "전라도 특집 여수/전주/광주",
+      "image": "images/live5_bg.jpg",
+      "url": "#"
+    },
+    "live_time": {
+      "date": "10월 27일 (금)",
+      "time": "11:00"
+    },
+    "live_product": {
+      "image": "images/live5.jpg",
+      "name": "제품명",
+      "discount": 53,
+      "price": 100000,
+      "url": "product.html",
+      "open": false
+    }
+  }
+}
