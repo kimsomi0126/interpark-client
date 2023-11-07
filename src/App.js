@@ -19,7 +19,7 @@ function App() {
       <div className="main">
         <Visual />
         <Recommend2 />
-        <Recommend />
+        {/* <Recommend /> */}
         <Tour />
         <Ticket />
         <Live />

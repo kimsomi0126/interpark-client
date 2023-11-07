@@ -9,7 +9,54 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import "../styles/tour.css";
 
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function Tour() {
+  const [htmlTag, setHtmlTag] = useState([]);
+  const [activeTab, setActiveTab] = useState("tab-1"); // 초기 활성 탭 설정
+
+  const axiosGetData = () => {
+    axios
+      .get("tour.json")
+      .then((res) => {
+        const tabButtons = document.querySelectorAll(".tour-tab .tab-btn");
+        const bookSlide = document.querySelector(".tour-slide");
+        tabButtons.forEach(function (button, index) {
+          const category = button.getAttribute("data-category");
+          const cateBtn = res.data[category];
+          let arr = [];
+          for (let i = 0; i < cateBtn.total; i++) {
+            const obj = cateBtn["tour_" + (i + 1)];
+            arr[i] = obj;
+          }
+          if (category === activeTab) {
+            setHtmlTag(arr); // 활성 탭 데이터 설정
+          }
+
+          button.addEventListener("click", function () {
+            tabButtons.forEach(function (btn) {
+              btn.classList.remove("on");
+              bookSlide.classList.remove(btn.getAttribute("data-category"));
+            });
+
+            button.classList.add("on");
+            bookSlide.classList.add(category);
+
+            setHtmlTag(arr);
+            setActiveTab(category); // 클릭한 탭을 활성 탭으로 설정
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("error :", error);
+      });
+  };
+
+  useEffect(() => {
+    axiosGetData();
+  }, []);
+
   return (
     <section className="tour">
       <div className="tour-inner">
@@ -20,16 +67,24 @@ export default function Tour() {
         <div className="tour-wrap">
           <ul className="tour-tab tab-list">
             <li>
-              <button className="tab-btn on">망설이면 품절</button>
+              <button className="tab-btn on" data-category="tab-1">
+                망설이면 품절
+              </button>
             </li>
             <li>
-              <button className="tab-btn">패키지</button>
+              <button className="tab-btn" data-category="tab-2">
+                패키지
+              </button>
             </li>
             <li>
-              <button className="tab-btn">국내숙소</button>
+              <button className="tab-btn" data-category="tab-3">
+                국내숙소
+              </button>
             </li>
             <li>
-              <button className="tab-btn">해외숙소</button>
+              <button className="tab-btn" data-category="tab-4">
+                해외숙소
+              </button>
             </li>
           </ul>
 
@@ -45,98 +100,35 @@ export default function Tour() {
             modules={[Navigation]}
             className="tour-slide"
           >
-            <SwiperSlide>
-              <div className="tour-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/t1.jpg" alt="tour_img" />
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="tour-slide-item">
+                    <a href={item.url}>
+                      <div className="item-img">
+                        <img src={item.image} alt={item.name} />
+                      </div>
+                      <div className="item-info">
+                        {item.cate === "" ? (
+                          ""
+                        ) : (
+                          <span className="tour-badge">{item.cate}</span>
+                        )}
+                        <div className="item-name">
+                          <span className="benefit">{item.benefit}</span>
+                          <p className="name">{item.name}</p>
+                        </div>
+                        <div className="item-price">
+                          <span>
+                            <b>{item.price}</b>원~
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                  <div className="item-info">
-                    <span className="tour-badge">방콕</span>
-                    <div className="item-name">
-                      <span className="benefit">
-                        5성급, 차오프라야강 리버뷰
-                      </span>
-                      <p className="name">밀레니엄 힐튼 방콕</p>
-                    </div>
-                    <div className="item-price">
-                      <span>
-                        <b>198,798</b>원~
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="tour-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/t2.jpg" alt="tour_img" />
-                  </div>
-                  <div className="item-info">
-                    <span className="tour-badge">국적기직항</span>
-                    <div className="item-name">
-                      <span className="benefit">
-                        5성급, 차오프라야강 리버뷰
-                      </span>
-                      <p className="name">밀레니엄 힐튼 방콕</p>
-                    </div>
-                    <div className="item-price">
-                      <span>
-                        <b>198,798</b>원~
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="tour-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/t3.jpg" alt="tour_img" />
-                  </div>
-                  <div className="item-info">
-                    <span className="tour-badge">방콕</span>
-                    <div className="item-name">
-                      <span className="benefit">
-                        5성급, 차오프라야강 리버뷰
-                      </span>
-                      <p className="name">밀레니엄 힐튼 방콕</p>
-                    </div>
-                    <div className="item-price">
-                      <span>
-                        <b>198,798</b>원~
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="tour-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/t4.jpg" alt="tour_img" />
-                  </div>
-                  <div className="item-info">
-                    <span className="tour-badge">국적기직항</span>
-                    <div className="item-name">
-                      <span className="benefit">
-                        5성급, 차오프라야강 리버뷰
-                      </span>
-                      <p className="name">밀레니엄 힐튼 방콕</p>
-                    </div>
-                    <div className="item-price">
-                      <span>
-                        <b>198,798</b>원~
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="tour-btn slide-btn next">이전</button>
           <button className="tour-btn slide-btn prev">다음</button>

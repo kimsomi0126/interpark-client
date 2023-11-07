@@ -10,35 +10,52 @@ import { Navigation } from "swiper/modules";
 import "../styles/recommend.css";
 import { useEffect, useState } from "react";
 
+import axios from "axios";
+
 export default function Recommend() {
   // json 데이터 저장 후, 자료가 바뀌면 화면 변경될 변수
   const [htmlTag, setHtmlTag] = useState([]);
-
-  const getJsonData = () => {
-    fetch("recommend.json")
-      .then((response) => {
-        // console.log("response :", response);
-        return response.json();
-      })
-      .then((result) => {
+  const axiosGetData = () => {
+    axios
+      .get("recommend.json")
+      .then((res) => {
         // 자료 처리
-        // console.log("result :", result);
         let arr = [];
-        for (let i = 0; i < result.total; i++) {
-          const obj = result["good_" + (i + 1)];
+        for (let i = 0; i < res.data.total; i++) {
+          const obj = res.data["good_" + (i + 1)];
           arr[i] = obj;
         }
         setHtmlTag(arr);
       })
       .catch((error) => {
-        // 에러발생
         console.log("error :", error);
       });
   };
+  // const getJsonData = () => {
+  //   fetch("recommend.json")
+  //     .then((response) => {
+  //       // console.log("response :", response);
+  //       return response.json();
+  //     })
+  //     .then((result) => {
+  //       // 자료 처리
+  //       // console.log("result :", result);
+  //       let arr = [];
+  //       for (let i = 0; i < result.total; i++) {
+  //         const obj = result["good_" + (i + 1)];
+  //         arr[i] = obj;
+  //       }
+  //       setHtmlTag(arr);
+  //     })
+  //     .catch((error) => {
+  //       // 에러발생
+  //       console.log("error :", error);
+  //     });
+  // };
 
   useEffect(() => {
     //화면 로딩 후 외부데이터 호출
-    getJsonData();
+    axiosGetData();
   }, []);
 
   return (

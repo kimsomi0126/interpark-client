@@ -2,24 +2,44 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Recommend() {
-  // 활성 탭을 상태로 관리
-  const [activeTab, setActiveTab] = useState("tab-1");
-  // 탭 데이터를 상태로 관리
-  const [tabData, setTabData] = useState({});
-  // 슬라이드에 표시할 데이터를 상태로 관리
+export default function Recommend2() {
   const [htmlTag, setHtmlTag] = useState([]);
+  const [activeTab, setActiveTab] = useState("tab-1"); // 초기 활성 탭 설정
 
-  // JSON 데이터를 가져오는 함수
-  const getJsonData = () => {
-    fetch("recommend2.json")
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        setTabData(result); // 전체 탭 데이터 설정
-        setHtmlTag(result[activeTab]); // 처음 로딩 시 첫 번째 탭 데이터 설정
+  const axiosGetData = () => {
+    axios
+      .get("Recommend2.json")
+      .then((res) => {
+        const tabButtons = document.querySelectorAll(".recommend-tab .tab-btn");
+        const bookSlide = document.querySelector(".recommend-slide");
+        tabButtons.forEach(function (button, index) {
+          const category = button.getAttribute("data-category");
+          const cateBtn = res.data[category];
+          console.log(cateBtn.total);
+          let arr = [];
+          for (let i = 0; i < cateBtn.total; i++) {
+            const obj = cateBtn["good_" + (i + 1)];
+            arr[i] = obj;
+          }
+          if (category === activeTab) {
+            setHtmlTag(arr); // 활성 탭 데이터 설정
+          }
+
+          button.addEventListener("click", function () {
+            tabButtons.forEach(function (btn) {
+              btn.classList.remove("on");
+              bookSlide.classList.remove(btn.getAttribute("data-category"));
+            });
+
+            button.classList.add("on");
+            bookSlide.classList.add(category);
+
+            setHtmlTag(arr);
+            setActiveTab(category); // 클릭한 탭을 활성 탭으로 설정
+          });
+        });
       })
       .catch((error) => {
         console.log("error :", error);
@@ -27,15 +47,8 @@ export default function Recommend() {
   };
 
   useEffect(() => {
-    // 페이지 로딩 후 JSON 데이터 가져오기
-    getJsonData();
+    axiosGetData();
   }, []);
-
-  // 탭 클릭 시 호출되는 함수
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    setHtmlTag(tabData[tab]); // 선택한 탭의 데이터로 업데이트
-  };
 
   return (
     <section className="recommend">
@@ -48,21 +61,28 @@ export default function Recommend() {
         </div>
         <div className="recommend-wrap">
           <ul className="recommend-tab tab-list">
-            {Object.keys(tabData).map((tab) => (
-              <li key={tab}>
-                <button
-                  // 탭 클릭 시 "on" 클래스 추가, 활성 탭 표시
-                  className={`tab-btn ${activeTab === tab ? "on" : ""}`}
-                  data-category={tab}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tabData[tab].name}
-                </button>
-              </li>
-            ))}
-
             <li>
-              <a href="" className="tab-btn">
+              <button className="tab-btn on" data-category="tab-1">
+                쎈딜
+              </button>
+            </li>
+            <li>
+              <button className="tab-btn" data-category="tab-2">
+                베스트
+              </button>
+            </li>
+            <li>
+              <button className="tab-btn" data-category="tab-3">
+                블프데이
+              </button>
+            </li>
+            <li>
+              <button className="tab-btn" data-category="tab-4">
+                디지털프라자
+              </button>
+            </li>
+            <li>
+              <a href="" className="tab-btn" data-category="tab-5">
                 소담상회
               </a>
             </li>
@@ -79,38 +99,49 @@ export default function Recommend() {
             modules={[Navigation]}
             className="recommend-slide"
           >
-            {htmlTag &&
-              htmlTag.total &&
-              Object.keys(htmlTag).map((goodKey) => {
-                if (goodKey.startsWith("good_")) {
-                  const goodData = htmlTag[goodKey];
-                  return (
-                    <SwiperSlide key={goodKey}>
-                      <div className="recommend-slide-item">
-                        <a href={goodData.url}>
-                          <div className="item-img">
-                            <img src={goodData.image} alt={goodData.name} />
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  {index === htmlTag.length - 1 ? (
+                    <div className="slide-item-more">
+                      <a href={item.url}>
+                        <i>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/images/btn_moreProduct.svg"
+                            }
+                          />
+                        </i>
+                        <p>전체보기</p>
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="recommend-slide-item">
+                      <a href={item.url}>
+                        <div className="item-img">
+                          <img
+                            src={process.env.PUBLIC_URL + item.image}
+                            alt={item.alt}
+                          />
+                        </div>
+                        <div className="item-info">
+                          <div className="item-price">
+                            <span className="sale-percentage">
+                              {item.discount === 0 ? "" : item.discount + "%"}
+                            </span>
+                            <span>
+                              <b>{item.price}</b>원
+                            </span>
                           </div>
-                          <div className="item-info">
-                            <div className="item-price">
-                              <span className="sale-percentage">
-                                {goodData.discount === 0
-                                  ? ""
-                                  : goodData.discount + "%"}
-                              </span>
-                              <span>
-                                <b>{goodData.price}</b>원
-                              </span>
-                            </div>
-                            <div className="item-name">{goodData.name}</div>
-                          </div>
-                        </a>
-                      </div>
-                    </SwiperSlide>
-                  );
-                }
-                return null;
-              })}
+                          <div className="item-name">{item.name}</div>
+                        </div>
+                      </a>
+                    </div>
+                  )}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="recommend-btn slide-btn next">이전</button>
           <button className="recommend-btn slide-btn prev">다음</button>

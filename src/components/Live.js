@@ -8,8 +8,30 @@ import "swiper/css";
 // import required modules
 import { Navigation } from "swiper/modules";
 import "../styles/live.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Live() {
+  const [htmlTag, setHtmlTag] = useState([]);
+  const axiosGetData = () => {
+    axios
+      .get("live.json")
+      .then((res) => {
+        let arr = [];
+        for (let i = 0; i < res.data.total; i++) {
+          const obj = res.data["live_" + (i + 1)];
+          arr[i] = obj;
+        }
+        setHtmlTag(arr);
+      })
+      .catch((error) => {
+        console.log("error :", error);
+      });
+  };
+  useEffect(() => {
+    axiosGetData();
+  }, []);
+
   return (
     <section className="live">
       <div className="live-inner">
@@ -31,229 +53,79 @@ export default function Live() {
             modules={[Navigation]}
             className="live-slide"
           >
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ready">
-                    <img src="images/live1_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">방송예정</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                    <div className="item-time">
-                      <p>10월 27일 (금)</p>
-                      <b>11:00</b>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ready">
-                    <img src="images/live2_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">방송예정</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                    <div className="item-time">
-                      <p>10월 27일 (금)</p>
-                      <b>11:00</b>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ready">
-                    <img src="images/live3_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">방송예정</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                    <div className="item-time">
-                      <p>10월 27일 (금)</p>
-                      <b>11:00</b>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ">
-                    <img src="images/live4_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge on">LIVE</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                  </div>
-                </a>
-                <div className="item-product">
-                  <a href="">
-                    <div className="product-img">
-                      <img src="images/live4.png" alt="" />
-                    </div>
-                    <div className="product-info">
-                      <div className="item-name">
-                        <p className="name">전라도 특집 여수/전주/광주</p>
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="live-slide-item">
+                    <a href={item.live_info.url}>
+                      <div
+                        className={
+                          item.live_info.state === "방송예정"
+                            ? "item-img  ready"
+                            : "item-img"
+                        }
+                      >
+                        <img
+                          src={item.live_info.image}
+                          alt={item.live_info.name}
+                        />
                       </div>
-                      <div className="item-price">
-                        <span className="sale-percentage">50%</span>
-                        <span>
-                          <b>6,900</b>원
-                        </span>
+                      <div className="item-info">
+                        <div className="item-title">
+                          <span
+                            className={
+                              item.live_info.state === "LIVE"
+                                ? "live-badge on"
+                                : "live-badge"
+                            }
+                          >
+                            {item.live_info.state}
+                          </span>
+                          <p className="name">{item.live_info.name}</p>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ">
-                    <img src="images/live5_bg.jpg" alt="live_img" />
+                      {item.live_info.state === "방송예정" ? (
+                        <div className="item-time">
+                          <p>{item.live_time.date}</p>
+                          <b>{item.live_time.time}</b>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </a>
+                    {item.live_product.open === true ? (
+                      <div className="item-product">
+                        <a href={item.live_product.url}>
+                          <div className="product-img">
+                            <img
+                              src={item.live_product.image}
+                              alt={item.live_product.name}
+                            />
+                          </div>
+                          <div className="product-info">
+                            <div className="item-name">
+                              <p className="name">{item.live_product.name}</p>
+                            </div>
+                            <div className="item-price">
+                              <span className="sale-percentage">
+                                {item.live_product.discount === 0
+                                  ? ""
+                                  : item.live_product.discount + "%"}
+                              </span>
+                              <span>
+                                <b>{item.live_product.price}</b>원
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">VOD</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                  </div>
-                </a>
-                <div className="item-product">
-                  <a href="">
-                    <div className="product-img">
-                      <img src="images/live5.jpg" alt="" />
-                    </div>
-                    <div className="product-info">
-                      <div className="item-name">
-                        <p className="name">전라도 특집 여수/전주/광주</p>
-                      </div>
-                      <div className="item-price">
-                        <span className="sale-percentage">50%</span>
-                        <span>
-                          <b>6,900</b>원
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ">
-                    <img src="images/live1_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">VOD</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                  </div>
-                </a>
-                <div className="item-product">
-                  <a href="">
-                    <div className="product-img">
-                      <img src="images/live1.png" alt="" />
-                    </div>
-                    <div className="product-info">
-                      <div className="item-name">
-                        <p className="name">전라도 특집 여수/전주/광주</p>
-                      </div>
-                      <div className="item-price">
-                        <span className="sale-percentage">50%</span>
-                        <span>
-                          <b>6,900</b>원
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ">
-                    <img src="images/live2_bg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">VOD</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                  </div>
-                </a>
-
-                <div className="item-product">
-                  <a href="">
-                    <div className="product-img">
-                      <img src="images/live2.jpg" alt="" />
-                    </div>
-                    <div className="product-info">
-                      <div className="item-name">
-                        <p className="name">전라도 특집 여수/전주/광주</p>
-                      </div>
-                      <div className="item-price">
-                        <span className="sale-percentage">50%</span>
-                        <span>
-                          <b>6,900</b>원
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="live-slide-item">
-                <a href="">
-                  <div className="item-img ">
-                    <img src="images/liveBg.jpg" alt="live_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-title">
-                      <span className="live-badge">VOD</span>
-                      <p className="name">전라도 특집 여수/전주/광주</p>
-                    </div>
-                  </div>
-                </a>
-                <div className="item-product">
-                  <a href="">
-                    <div className="product-img">
-                      <img src="images/live3.jpg" alt="" />
-                    </div>
-                    <div className="product-info">
-                      <div className="item-name">
-                        <p className="name">전라도 특집 여수/전주/광주</p>
-                      </div>
-                      <div className="item-price">
-                        <span className="sale-percentage">50%</span>
-                        <span>
-                          <b>6,900</b>원
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </SwiperSlide>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="live-btn slide-btn next">이전</button>
           <button className="live-btn slide-btn prev">다음</button>

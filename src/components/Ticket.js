@@ -8,8 +8,54 @@ import "swiper/css";
 // import required modules
 import { Navigation } from "swiper/modules";
 import "../styles/ticket.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Ticket() {
+  const [htmlTag, setHtmlTag] = useState([]);
+  const [activeTab, setActiveTab] = useState("tab-1"); // 초기 활성 탭 설정
+
+  const axiosGetData = () => {
+    axios
+      .get("ticket.json")
+      .then((res) => {
+        const tabButtons = document.querySelectorAll(".ticket-tab .tab-btn");
+        const bookSlide = document.querySelector(".ticket-slide");
+        tabButtons.forEach(function (button, index) {
+          const category = button.getAttribute("data-category");
+          const cateBtn = res.data[category];
+          let arr = [];
+          for (let i = 0; i < cateBtn.total; i++) {
+            const obj = cateBtn["ticket_" + (i + 1)];
+            arr[i] = obj;
+          }
+          if (category === activeTab) {
+            setHtmlTag(arr); // 활성 탭 데이터 설정
+          }
+
+          button.addEventListener("click", function () {
+            tabButtons.forEach(function (btn) {
+              btn.classList.remove("on");
+              bookSlide.classList.remove(btn.getAttribute("data-category"));
+            });
+
+            button.classList.add("on");
+            bookSlide.classList.add(category);
+
+            setHtmlTag(arr);
+            setActiveTab(category); // 클릭한 탭을 활성 탭으로 설정
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("error :", error);
+      });
+  };
+
+  useEffect(() => {
+    axiosGetData();
+  }, []);
+
   return (
     <section className="ticket">
       <div className="ticket-inner">
@@ -20,28 +66,44 @@ export default function Ticket() {
         <div className="ticket-wrap">
           <ul className="ticket-tab tab-list">
             <li>
-              <button className="tab-btn on">뮤지컬</button>
+              <button className="tab-btn on" data-category="tab-1">
+                뮤지컬
+              </button>
             </li>
             <li>
-              <button className="tab-btn">콘서트</button>
+              <button className="tab-btn" data-category="tab-2">
+                콘서트
+              </button>
             </li>
             <li>
-              <button className="tab-btn">스포츠</button>
+              <button className="tab-btn" data-category="tab-3">
+                스포츠
+              </button>
             </li>
             <li>
-              <button className="tab-btn">전시/행사</button>
+              <button className="tab-btn" data-category="tab-4">
+                전시/행사
+              </button>
             </li>
             <li>
-              <button className="tab-btn">클래식/무용</button>
+              <button className="tab-btn" data-category="tab-5">
+                클래식/무용
+              </button>
             </li>
             <li>
-              <button className="tab-btn">아동/가족</button>
+              <button className="tab-btn" data-category="tab-6">
+                아동/가족
+              </button>
             </li>
             <li>
-              <button className="tab-btn">연극</button>
+              <button className="tab-btn" data-category="tab-7">
+                연극
+              </button>
             </li>
             <li>
-              <button className="tab-btn">레저/캠핑</button>
+              <button className="tab-btn" data-category="tab-8">
+                레저/캠핑
+              </button>
             </li>
           </ul>
 
@@ -57,156 +119,49 @@ export default function Ticket() {
             modules={[Navigation]}
             className="ticket-slide"
           >
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk1.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  {index === htmlTag.length - 1 ? (
+                    <div className="slide-item-more">
+                      <a href={item.url}>
+                        <i>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/images/btn_moreProduct.svg"
+                            }
+                          />
+                        </i>
+                        <p>전체보기</p>
+                      </a>
                     </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
+                  ) : (
+                    <div className="recommend-slide-item">
+                      <a href={item.url}>
+                        <div className="item-img">
+                          <img
+                            src={process.env.PUBLIC_URL + item.image}
+                            alt={item.alt}
+                          />
+                        </div>
+                        <div className="item-info">
+                          <div className="item-price">
+                            <span className="sale-percentage">
+                              {item.discount === 0 ? "" : item.discount + "%"}
+                            </span>
+                            <span>
+                              <b>{item.price}</b>원
+                            </span>
+                          </div>
+                          <div className="item-name">{item.name}</div>
+                        </div>
+                      </a>
                     </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk2.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk3.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk4.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk5.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk1.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="ticket-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/tk2.gif" alt="ticket_img" />
-                  </div>
-                  <div className="item-info">
-                    <div className="item-name">
-                      <p className="name">뮤지컬 레미제라블</p>
-                      <p className="place">예술의전당 CJ 토월극장</p>
-                      <p className="duration">2023.12.19 - 2024.02.25</p>
-                    </div>
-                    <div className="ticket-badge">
-                      <span className="blue-badge">좌석우위</span>
-                      <span className="red-badge">단독판매</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="slide-item-more">
-                <a href="">
-                  <i>
-                    <img src="images/btn_moreProduct.svg" alt="전체보기" />
-                  </i>
-                  <p>전체보기</p>
-                </a>
-              </div>
-            </SwiperSlide>
+                  )}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="ticket-btn slide-btn next">이전</button>
           <button className="ticket-btn slide-btn prev">다음</button>

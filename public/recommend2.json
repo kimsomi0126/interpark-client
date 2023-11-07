@@ -1,6 +1,5 @@
 {
   "tab-1": {
-    "name": "쎈딜",
     "total": 12,
     "good_1": {
       "image": "images/r1.jpg",
@@ -84,7 +83,6 @@
     }
   },
   "tab-2": {
-    "name": "베스트",
     "total": 12,
     "good_1": {
       "image": "images/r9.png",
@@ -168,7 +166,6 @@
     }
   },
   "tab-3": {
-    "name": "블프데이",
     "total": 12,
     "good_1": {
       "image": "images/r8.jpg",
