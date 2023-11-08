@@ -27,6 +27,7 @@ export default function Ticket() {
           let arr = [];
           for (let i = 0; i < cateBtn.total; i++) {
             const obj = cateBtn["ticket_" + (i + 1)];
+
             arr[i] = obj;
           }
           if (category === activeTab) {
@@ -54,6 +55,7 @@ export default function Ticket() {
 
   useEffect(() => {
     axiosGetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -131,30 +133,31 @@ export default function Ticket() {
                               process.env.PUBLIC_URL +
                               "/images/btn_moreProduct.svg"
                             }
+                            alt="전체보기"
                           />
                         </i>
                         <p>전체보기</p>
                       </a>
                     </div>
                   ) : (
-                    <div className="recommend-slide-item">
+                    <div className="ticket-slide-item">
                       <a href={item.url}>
                         <div className="item-img">
-                          <img
-                            src={process.env.PUBLIC_URL + item.image}
-                            alt={item.alt}
-                          />
+                          <img src={item.image} alt={item.name} />
                         </div>
                         <div className="item-info">
-                          <div className="item-price">
-                            <span className="sale-percentage">
-                              {item.discount === 0 ? "" : item.discount + "%"}
-                            </span>
-                            <span>
-                              <b>{item.price}</b>원
-                            </span>
+                          <div className="item-name">
+                            <p className="name">{item.name}</p>
+                            <p className="place">{item.place}</p>
+                            <p className="duration">{item.duration}</p>
                           </div>
-                          <div className="item-name">{item.name}</div>
+                          <div className="ticket-badge">
+                            {item.badge === "좌석우위" ? (
+                              <span className="blue-badge">{item.badge}</span>
+                            ) : (
+                              <span className="red-badge">{item.badge}</span>
+                            )}
+                          </div>
                         </div>
                       </a>
                     </div>

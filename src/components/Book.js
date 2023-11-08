@@ -12,6 +12,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Book() {
+  // 숫자 콤마 출력
+  function numberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   const [htmlTag, setHtmlTag] = useState([]);
   const [activeTab, setActiveTab] = useState("tab-1"); // 초기 활성 탭 설정
   const axiosGetData = () => {
@@ -53,6 +57,7 @@ export default function Book() {
 
   useEffect(() => {
     axiosGetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -114,7 +119,7 @@ export default function Book() {
                         </div>
                         <div className="item-price">
                           <span>
-                            <b>{item.price}</b>원
+                            <b>{numberWithCommas(item.price)}</b>원
                           </span>
                         </div>
                       </div>

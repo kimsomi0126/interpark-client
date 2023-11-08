@@ -1,7 +1,7 @@
+@charset "UTF-8";
 .event {
   position: relative;
 }
-
 .event-inner {
   position: relative;
   max-width: 128rem;
@@ -17,7 +17,6 @@
   overflow: hidden;
   background: rgba(0, 0, 0, 0.3);
 }
-
 .event-slide-item img {
   opacity: 0.93;
-}
+}/*# sourceMappingURL=event.css.map */

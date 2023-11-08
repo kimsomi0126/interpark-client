@@ -1,5 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css");
-
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -61,9 +60,8 @@ body {
 }
 .title-wrap .title-txt {
   font-size: 1.8rem;
-  color: #12121280;
+  color: rgba(18, 18, 18, 0.5019607843);
 }
-
 .title-wrap img {
   height: 4rem;
   margin-bottom: 1rem;
@@ -78,23 +76,103 @@ body {
   margin-bottom: 2rem;
   text-align: center;
 }
-
 .tab-list .tab-btn {
   position: relative;
   display: block;
   padding: 0 2rem;
-  border: 1px solid #e5e5e5e5;
+  border: 1px solid rgba(229, 229, 229, 0.8980392157);
   background: transparent;
   font-size: 1.4rem;
   line-height: 4.2rem;
   border-radius: 5rem;
 }
-
 .tab-list li .tab-btn.on {
   border-color: #333;
   background: #333;
   font-weight: 700;
   color: #fff;
+}
+
+/* 메인 바로가기 버튼 */
+.link-btn {
+  position: relative;
+  margin-top: 2rem;
+  text-align: center;
+}
+.link-btn a {
+  position: relative;
+  display: inline-block;
+  padding: 1.5rem 4rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-radius: 5rem;
+}
+.link-btn span {
+  padding-right: 1.5rem;
+  background: url(../images/icon_linkArrow.svg) no-repeat right 55%;
+}
+
+/* 메인 슬라이드(공통) */
+.item-img img {
+  width: 100%;
+}
+.item-price {
+  font-size: 1.8rem;
+}
+.item-price b {
+  font-size: 2rem;
+}
+.item-name {
+  font-size: 1.5rem;
+}
+
+.sale-percentage {
+  padding-right: 0.2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ff0000;
+}
+
+/* 메인 슬라이드(전체보기) */
+.slide-item-more {
+  position: relative;
+  width: 100%;
+  height: 40.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.slide-item-more a {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.slide-item-more p {
+  margin-top: 0.5rem;
+}
+
+.none {
+  display: none;
+}
+
+/* 다음 코드 변경하지 마세요. */
+.swiper,
+.swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.visual-slide-item {
+  overflow: hidden;
+  border-radius: 1.4rem;
+}
+.visual-slide-item a {
+  position: relative;
+  display: block;
+}
+.visual-slide-item img {
+  width: 100%;
 }
 
 .slide-btn {
@@ -109,16 +187,6 @@ body {
   font-size: 0;
   border-radius: 50%;
 }
-
-.slide-btn.next {
-  right: 0;
-  transform: translate(50%, -50%);
-}
-.slide-btn.prev {
-  left: 0;
-  transform: translate(-50%, -50%);
-}
-
 .slide-btn::before {
   content: "";
   position: absolute;
@@ -127,96 +195,26 @@ body {
   width: 1rem;
   height: 1.8rem;
 }
+.slide-btn.next {
+  right: 0;
+  transform: translate(50%, -50%);
+}
 .slide-btn.next::before {
-  background: url(http://localhost:3000/images/slider_arrow.svg) no-repeat
-    center/cover;
+  background: url(../images/slider_arrow.svg) no-repeat center/cover;
+  transform: translate(-50%, -50%);
+}
+.slide-btn.prev {
+  left: 0;
   transform: translate(-50%, -50%);
 }
 .slide-btn.prev::before {
-  background: url(http://localhost:3000/images/slider_arrow.svg) no-repeat
-    center/cover;
+  background: url(../images/slider_arrow.svg) no-repeat center/cover;
   transform: rotate(180deg) translate(50%, 50%);
 }
-
 .slide-btn.prev img {
   transform: rotate(180deg);
 }
 
 .swiper-button-disabled {
   display: none;
-}
-
-/* 메인 바로가기 버튼 */
-.link-btn {
-  position: relative;
-  margin-top: 2rem;
-  text-align: center;
-}
-
-.link-btn a {
-  position: relative;
-  display: inline-block;
-  padding: 1.5rem 4rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 1.6rem;
-  font-weight: 700;
-  border-radius: 5rem;
-}
-.link-btn span {
-  padding-right: 1.5rem;
-  background: url(http://localhost:3000/images/icon_linkArrow.svg) no-repeat
-    right 55%;
-}
-
-/* 메인 슬라이드(공통) */
-.item-img img {
-  width: 100%;
-}
-
-.item-price {
-  font-size: 1.8rem;
-}
-
-.item-price b {
-  font-size: 2rem;
-}
-
-.sale-percentage {
-  padding-right: 0.2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #ff0000;
-}
-
-.item-name {
-  font-size: 1.5rem;
-}
-
-.swiper,
-.swiper-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-/* 메인 슬라이드(전체보기) */
-.slide-item-more {
-  position: relative;
-  width: 100%;
-  height: 40.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.slide-item-more a {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-.slide-item-more p {
-  margin-top: 0.5rem;
-}
-
-.none {
-  display: none;
-}
+} /*# sourceMappingURL=visual.css.map */

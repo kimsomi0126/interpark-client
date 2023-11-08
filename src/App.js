@@ -1,14 +1,14 @@
-import "./styles/common.css";
+import "./styles/index.css";
 import Book from "./components/Book";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Live from "./components/Live";
 import MainEvent from "./components/MainEvent";
-import Recommend from "./components/Recommend";
 import Ticket from "./components/Ticket";
 import Tour from "./components/Tour";
 import Visual from "./components/Visual";
 import Recommend2 from "./components/Recommend2";
+import Recommend from "./components/Recommend";
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
       {/* <!-- 메인 영역 --> */}
       <div className="main">
         <Visual />
-        <Recommend2 />
-        {/* <Recommend /> */}
+        <Recommend />
+        {/* <Recommend2 /> */}
         <Tour />
         <Ticket />
         <Live />

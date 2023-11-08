@@ -8,8 +8,29 @@ import "swiper/css";
 // import required modules
 import { Autoplay, Navigation } from "swiper/modules";
 import "../styles/event.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function MainEvent() {
+  const [htmlTag, setHtmlTag] = useState([]);
+  const axiosGetData = () => {
+    axios
+      .get("event.json")
+      .then((res) => {
+        let arr = [];
+        for (let i = 0; i < res.data.total; i++) {
+          const obj = res.data["event_" + (i + 1)];
+          arr[i] = obj;
+        }
+        setHtmlTag(arr);
+      })
+      .catch((error) => {
+        console.log("error :", error);
+      });
+  };
+  useEffect(() => {
+    axiosGetData();
+  }, []);
   return (
     <section className="event">
       <div className="event-inner">
@@ -24,7 +45,7 @@ export default function MainEvent() {
             slidesPerView={4}
             slidesPerGroup={4}
             spaceBetween={26}
-            speed={400}
+            speed={500}
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
@@ -36,60 +57,19 @@ export default function MainEvent() {
             modules={[Autoplay, Navigation]}
             className="event-slide"
           >
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e1.png" alt="event-img" />
+            {htmlTag.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="event-slide-item">
+                    <a href={item.url}>
+                      <div className="item-img">
+                        <img src={item.image} alt="event-img" />
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e2.jpg" alt="event-img" />
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e1.png" alt="event-img" />
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e2.jpg" alt="event-img" />
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e1.png" alt="event-img" />
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="event-slide-item">
-                <a href="">
-                  <div className="item-img">
-                    <img src="images/e2.jpg" alt="event-img" />
-                  </div>
-                </a>
-              </div>
-            </SwiperSlide>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
           <button className="event-btn slide-btn next">이전</button>
           <button className="event-btn slide-btn prev">다음</button>

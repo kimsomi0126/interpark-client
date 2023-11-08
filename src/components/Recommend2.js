@@ -1,10 +1,23 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
 import "swiper/css";
+
+// import required modules
 import { Navigation } from "swiper/modules";
+import "../styles/recommend.css";
 import { useEffect, useState } from "react";
+
 import axios from "axios";
 
 export default function Recommend2() {
+  // 숫자 콤마 출력
+  function numberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   const [htmlTag, setHtmlTag] = useState([]);
   const [activeTab, setActiveTab] = useState("tab-1"); // 초기 활성 탭 설정
 
@@ -17,7 +30,6 @@ export default function Recommend2() {
         tabButtons.forEach(function (button, index) {
           const category = button.getAttribute("data-category");
           const cateBtn = res.data[category];
-          console.log(cateBtn.total);
           let arr = [];
           for (let i = 0; i < cateBtn.total; i++) {
             const obj = cateBtn["good_" + (i + 1)];
@@ -42,12 +54,13 @@ export default function Recommend2() {
         });
       })
       .catch((error) => {
-        console.log("error :", error);
+        //console.log("error :", error);
       });
   };
 
   useEffect(() => {
     axiosGetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -111,6 +124,7 @@ export default function Recommend2() {
                               process.env.PUBLIC_URL +
                               "/images/btn_moreProduct.svg"
                             }
+                            alt="전체보기"
                           />
                         </i>
                         <p>전체보기</p>
@@ -131,7 +145,7 @@ export default function Recommend2() {
                               {item.discount === 0 ? "" : item.discount + "%"}
                             </span>
                             <span>
-                              <b>{item.price}</b>원
+                              <b>{numberWithCommas(item.price)}</b>원
                             </span>
                           </div>
                           <div className="item-name">{item.name}</div>

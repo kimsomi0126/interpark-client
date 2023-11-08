@@ -1,6 +1,5 @@
 /* http://meyerweb.com/eric/tools/css/reset/ */
 /* v1.0 | 20080212 */
-
 html,
 body,
 div,
@@ -69,19 +68,23 @@ td {
   outline: 0;
   vertical-align: baseline;
   background: transparent;
-  font-size: 100%;
+  /* font-size: 100%; */
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -99,6 +102,7 @@ q:after {
 ins {
   text-decoration: none;
 }
+
 del {
   text-decoration: line-through;
 }
@@ -107,4 +111,4 @@ del {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
+} /*# sourceMappingURL=reset.css.map */

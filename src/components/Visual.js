@@ -1,17 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
-
-// import required modules
 import { Autoplay, Navigation } from "swiper/modules";
 import "../styles/visual.css";
 import { useEffect, useRef, useState } from "react";
-
 // axios 모듈(js.파일) 가져오기
 import axios from "axios";
+import { BtSlidePrev, BtSlideNext } from "../components/ui/buttons";
+import { InnerArea, SectionTag } from "./ui/layout";
 
 export default function Visual() {
   // 1. swiper 슬라이드 태그를 참조한다.
@@ -78,11 +74,12 @@ export default function Visual() {
     return () => {
       // 삭제 (Clean Up 함수)
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <section className="visual">
-      <div className="visual-inner">
+    <SectionTag mt={3}>
+      <InnerArea>
         <Swiper
           slidesPerView={2}
           spaceBetween={24}
@@ -113,23 +110,21 @@ export default function Visual() {
             );
           })}
         </Swiper>
-        <button
-          className="visual-btn slide-btn prev"
+        <BtSlidePrev
           onClick={() => {
             swiperRef.current.slidePrev();
           }}
         >
           이전
-        </button>
-        <button
-          className="visual-btn slide-btn next"
+        </BtSlidePrev>
+        <BtSlideNext
           onClick={() => {
             swiperRef.current.slideNext();
           }}
         >
           다음
-        </button>
-      </div>
-    </section>
+        </BtSlideNext>
+      </InnerArea>
+    </SectionTag>
   );
 }

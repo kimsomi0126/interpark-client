@@ -11,7 +11,8 @@ import "../styles/recommend.css";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-
+import { BtCate, BtLink, BtSlideNext, BtSlidePrev } from "./ui/buttons";
+import { SectionTag, InnerArea } from "./ui/layout";
 export default function Recommend() {
   // json 데이터 저장 후, 자료가 바뀌면 화면 변경될 변수
   const [htmlTag, setHtmlTag] = useState([]);
@@ -59,8 +60,8 @@ export default function Recommend() {
   }, []);
 
   return (
-    <section className="recommend">
-      <div className="recommend-inner">
+    <SectionTag>
+      <InnerArea>
         <div className="title-wrap">
           <h2 className="title">쇼핑 추천</h2>
           <span className="title-txt">
@@ -70,24 +71,18 @@ export default function Recommend() {
         <div className="recommend-wrap">
           <ul className="recommend-tab tab-list">
             <li>
-              <button className="tab-btn on" data-category="tab-1">
+              <BtCate active={true} data-category="tab-1">
                 쎈딜
-              </button>
+              </BtCate>
             </li>
             <li>
-              <button className="tab-btn" data-category="tab-2">
-                베스트
-              </button>
+              <BtCate data-category="tab-2">베스트</BtCate>
             </li>
             <li>
-              <button className="tab-btn" data-category="tab-3">
-                블프데이
-              </button>
+              <BtCate data-category="tab-3">블프데이</BtCate>
             </li>
             <li>
-              <button className="tab-btn" data-category="tab-4">
-                디지털프라자
-              </button>
+              <BtCate data-category="tab-4">디지털프라자</BtCate>
             </li>
             <li>
               <a href="" className="tab-btn">
@@ -119,6 +114,7 @@ export default function Recommend() {
                               process.env.PUBLIC_URL +
                               "/images/btn_moreProduct.svg"
                             }
+                            alt="전체보기"
                           />
                         </i>
                         <p>전체보기</p>
@@ -151,15 +147,15 @@ export default function Recommend() {
               );
             })}
           </Swiper>
-          <button className="recommend-btn slide-btn next">이전</button>
-          <button className="recommend-btn slide-btn prev">다음</button>
+          <BtSlidePrev className="recommend-btn prev">이전</BtSlidePrev>
+          <BtSlideNext className="recommend-btn next">다음</BtSlideNext>
         </div>
-        <div className="link-btn">
+        <BtLink>
           <a href="">
             <span>쇼핑 홈 바로가기</span>
           </a>
-        </div>
-      </div>
-    </section>
+        </BtLink>
+      </InnerArea>
+    </SectionTag>
   );
 }

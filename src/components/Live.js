@@ -12,6 +12,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Live() {
+  // 숫자 콤마 출력
+  function numberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   const [htmlTag, setHtmlTag] = useState([]);
   const axiosGetData = () => {
     axios
@@ -113,7 +117,10 @@ export default function Live() {
                                   : item.live_product.discount + "%"}
                               </span>
                               <span>
-                                <b>{item.live_product.price}</b>원
+                                <b>
+                                  {numberWithCommas(item.live_product.price)}
+                                </b>
+                                원
                               </span>
                             </div>
                           </div>
