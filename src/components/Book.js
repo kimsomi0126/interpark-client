@@ -102,6 +102,14 @@ export default function Book() {
               nextEl: ".book-btn.next",
               prevEl: ".book-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 5,
+              },
+              767: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Navigation]}
             className="book-slide"
           >

@@ -99,6 +99,14 @@ export default function Recommend() {
               nextEl: ".recommend-btn.next",
               prevEl: ".recommend-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 4,
+              },
+              767: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Navigation]}
             className="recommend-slide"
           >

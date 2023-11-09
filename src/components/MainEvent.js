@@ -54,6 +54,14 @@ export default function MainEvent() {
               nextEl: ".event-btn.next",
               prevEl: ".event-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 4,
+              },
+              767: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Autoplay, Navigation]}
             className="event-slide"
           >

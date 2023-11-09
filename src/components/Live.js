@@ -54,6 +54,14 @@ export default function Live() {
               nextEl: ".live-btn.next",
               prevEl: ".live-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 4,
+              },
+              767: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Navigation]}
             className="live-slide"
           >

@@ -102,6 +102,14 @@ export default function Tour() {
               nextEl: ".tour-btn.next",
               prevEl: ".tour-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 3,
+              },
+              767: {
+                slidesPerView: 2,
+              },
+            }}
             modules={[Navigation]}
             className="tour-slide"
           >

@@ -118,6 +118,14 @@ export default function Ticket() {
               nextEl: ".ticket-btn.next",
               prevEl: ".ticket-btn.prev",
             }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 4,
+              },
+              767: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Navigation]}
             className="ticket-slide"
           >
