@@ -33,7 +33,7 @@ export default function MainEvent() {
   }, []);
   return (
     <section className="event">
-      <div className="event-inner">
+      <div className="inner">
         <div className="title-wrap">
           <h2 className="title">이벤트</h2>
           <span className="title-txt">

@@ -1,12 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useEffect } from "react";
 import "../styles/header.css";
+import { InnerArea } from "./ui/layout";
+import { HeaderTop } from "../styled/header";
 
 export default function Header() {
+  useEffect(() => {
+    const navbar = document.querySelector(".header");
+    const navbarHeight = navbar.scrollHeight / 2;
+    const myBtn = document.querySelector("#mypage-bt");
+    const myLink = document.querySelector(".mypage-pop");
+    let btnStatus = true;
+
+    document.addEventListener("scroll", function () {
+      if (window.scrollY > navbarHeight) {
+        navbar.classList.add("scroll");
+      } else {
+        navbar.classList.remove("scroll");
+      }
+    });
+    myBtn.addEventListener("click", function () {
+      if (btnStatus === true) {
+        btnStatus = false;
+        myLink.classList.add("on");
+      } else {
+        btnStatus = true;
+        myLink.classList.remove("on");
+      }
+    });
+  }, []);
   return (
     <header className="header">
       {/* <!-- 레이아웃 : div --> */}
-      <div className="header-inner">
-        <div className="header-top">
+      <InnerArea className="inner">
+        <HeaderTop className="header-top">
           <div className="header-top-left">
             <h1 className="h-logo">
               <a href="index.html">
@@ -155,7 +182,7 @@ export default function Header() {
               </li>
             </ul>
           </div>
-        </div>
+        </HeaderTop>
         <div className="header-bottom">
           {/* <!-- 상단 카테고리 --> */}
           <ul className="header-cate">
@@ -220,7 +247,7 @@ export default function Header() {
             </li>
           </ul>
         </div>
-      </div>
+      </InnerArea>
     </header>
   );
 }

@@ -62,7 +62,7 @@ export default function Book() {
 
   return (
     <section className="book">
-      <div className="book-inner">
+      <div className="inner">
         <div className="title-wrap">
           <h2 className="title">오늘의 도서</h2>
           <span className="title-txt">

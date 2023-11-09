@@ -68,7 +68,7 @@ td {
   outline: 0;
   vertical-align: baseline;
   background: transparent;
-  /* font-size: 100%; */
+  font-size: 100%;
 }
 
 body {
@@ -111,4 +111,4 @@ del {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-} /*# sourceMappingURL=reset.css.map */
+}/*# sourceMappingURL=reset.css.map */

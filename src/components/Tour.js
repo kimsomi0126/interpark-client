@@ -64,7 +64,7 @@ export default function Tour() {
 
   return (
     <section className="tour">
-      <div className="tour-inner">
+      <div className="inner">
         <div className="title-wrap">
           <h2 className="title">투어 특가</h2>
           <span className="title-txt">해외여행은 인터파크다</span>

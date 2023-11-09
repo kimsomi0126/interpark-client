@@ -38,7 +38,7 @@ export default function Live() {
 
   return (
     <section className="live">
-      <div className="live-inner">
+      <div className="inner">
         <div className="title-wrap">
           <h2 className="title">
             <img src="images/title_live.svg" alt="인터파크 LIVE" />

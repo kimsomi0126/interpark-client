@@ -60,7 +60,7 @@ export default function Ticket() {
 
   return (
     <section className="ticket">
-      <div className="ticket-inner">
+      <div className="inner">
         <div className="title-wrap">
           <h2 className="title">티켓 랭킹</h2>
           <span className="title-txt">오늘 뭐볼까? 지금 HOT한 공연</span>

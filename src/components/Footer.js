@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-link">
-        <div className="footer-inner">
+        <div className="inner">
           <ul className="footer-link-list">
             <li>
               <button>회사소개</button>
@@ -86,7 +86,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="footer-inner">
+      <div className="inner">
         <div className="footer-info-wrap">
           <div className="footer-info">
             <h4>(주)인터파크트리플</h4>
